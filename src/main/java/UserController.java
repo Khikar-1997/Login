@@ -1,26 +1,20 @@
-package controller;
-
-import user.User;
-import service.UserService;
-
 import java.util.Scanner;
 
 public class UserController {
-    private static final UserController instance = new UserController();
+    public static final UserController instance = new UserController();
     private UserService userService = UserService.instance;
-
-    private UserController() {
+    private UserController(){
     }
 
     private void createUser() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Please write user name");
+        System.out.println("Please write User name");
         String name = scanner.nextLine();
-        System.out.println("Please write user surname");
+        System.out.println("Please write User surname");
         String surname = scanner.nextLine();
         System.out.println("Plese write user password");
         String password = scanner.nextLine();
-        User user = new User(name, surname, password);
+        User user = new User(name,surname,password);
         userService.create(user);
     }
 
@@ -28,7 +22,7 @@ public class UserController {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please write user id");
         int id = scanner.nextInt();
-        System.out.println(userService.findUserById(id));
+        userService.findUserById(id);
     }
 
     private void updateUser() {
@@ -40,9 +34,6 @@ public class UserController {
         String name = scanner.nextLine();
         System.out.println("Plese write new surname");
         String surname = scanner.nextLine();
-        System.out.println("Please write new password");
-        String password = scanner.nextLine();
-        userService.update(id, new User(name, surname, password));
     }
 
     private void deleteMovie() {
@@ -52,39 +43,16 @@ public class UserController {
         userService.delete(id);
     }
 
-    private void login() {
+    private void login(){
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please write username");
         String username = scanner.nextLine();
         System.out.println("Please write user password");
         String password = scanner.nextLine();
-        if (userService.login(username, password)) {
-            System.out.println("You are login");
-            System.out.println("________________________________________");
-            System.out.println("     Save or not save password          ");
-            System.out.println();
-            System.out.println("   Press 1 save your password        ");
-            System.out.println("   Press 2 unsaved your password     ");
-            System.out.println("   Press 3 only this turn            ");
-            System.out.println("________________________________________");
-            int num = scanner.nextInt();
-            switch (num) {
-                case 1:
-                    System.out.println("save your password");
-                    break;
-                case 2:
-                    System.out.println("never save my password");
-                    break;
-                case 3:
-                    System.out.println("only this turn");
-                    break;
-                default:
-                    System.out.println("Unvalid order!!!!!!!!!!");
-                    break;
-            }
-
-        } else {
-            System.out.println("Unvalid password or username");
+        if (userService.login(username,password)){
+            System.out.println("You are login\n" +
+                    "save your password, or never\n" +
+                    "only this turn");
         }
     }
 
@@ -127,6 +95,6 @@ public class UserController {
                 default:
                     System.out.println("Plese write valid order");
             }
-        } while (num != 6);
+        }while (num != 6);
     }
 }

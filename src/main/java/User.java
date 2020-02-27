@@ -1,5 +1,3 @@
-package user;
-
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.Objects;
@@ -12,7 +10,7 @@ public class User {
     public User(String name, String username, String password) {
         this.name = name;
         this.username = username;
-        this.password = password;
+        this.password = BCrypt.hashpw(password,BCrypt.gensalt());
     }
 
     public User() {
@@ -39,11 +37,7 @@ public class User {
     }
 
     public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String bCryptPassword() {
-        return BCrypt.hashpw(getPassword(), BCrypt.gensalt());
+        this.password = BCrypt.hashpw(password,BCrypt.gensalt());;
     }
 
     @Override
@@ -63,7 +57,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "user.User{" +
+        return "User{" +
                 "name='" + name + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
